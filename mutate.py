@@ -136,7 +136,7 @@ def mutate_sequence_long(seq, chunk_size = 1000):
     seen = set()
     segments = []
 
-    while len(segments) < 20:
+    while len(segments) < 10:
         start = random.randint(0, max_start)
         segment = seq[start:start + chunk_size]
         if segment not in seen:
@@ -146,7 +146,7 @@ def mutate_sequence_long(seq, chunk_size = 1000):
     j = 0
     
     for segment in segments:
-        if j < 5:
+        if j < 3:
             mutated_chunks.append(segment)
             mutation_stats.append(dict())
             indel_stats.append(dict())
@@ -223,7 +223,7 @@ def process(input_path, output_path_base, chunk_size=175):
 
             chunks, mutation_stats, indel_stats = mutate_sequence_long(sequence, chunk_size)
             for i, chunk in enumerate(chunks):
-                is_sub_seq = 1 if i < 5 else 0
+                is_sub_seq = 1 if i < 3 else 0
                 writer.writerow({
                     '': row_id,
                     'label': is_sub_seq,
